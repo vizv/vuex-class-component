@@ -1,13 +1,16 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var actions_1 = require("./actions");
 var _1 = require(".");
 var VuexModule = /** @class */ (function () {
@@ -16,7 +19,7 @@ var VuexModule = /** @class */ (function () {
     VuexModule.CreateSubModule = function (SubModule) {
         return {
             type: _1._submodule,
-            store: SubModule,
+            store: SubModule
         };
     };
     VuexModule.CreateProxy = function ($store, cls) {
@@ -34,7 +37,7 @@ var VuexModule = /** @class */ (function () {
             mutations: cls.prototype[_1._mutations],
             actions: actions,
             getters: cls.prototype[_1._getters],
-            modules: cls.prototype[_1._module],
+            modules: cls.prototype[_1._module]
         };
         return mod;
     };
@@ -46,14 +49,10 @@ function createProxy($store, cls, cachePath) {
     var path = cls.prototype[_1._namespacedPath];
     var prototype = cls.prototype;
     if (prototype[cachePath] === undefined) { // Proxy has not been cached.
-        Object.getOwnPropertyNames(prototype[_1._state] || {}).map(function (name) {
-            Object.defineProperty(rtn, name, {
-                value: prototype[_1._state][name]
-            });
-        });
         Object.getOwnPropertyNames(prototype[_1._getters] || {}).map(function (name) {
             Object.defineProperty(rtn, name, {
-                get: function () { return $store.getters[path + name]; }
+                get: function () { return $store.getters[path + name]; },
+                value: prototype[_1._state][name]
             });
         });
         Object.getOwnPropertyNames(prototype[_1._mutations] || {}).map(function (name) {
@@ -132,6 +131,7 @@ function subModuleObjectIsFound(stateValue) {
     return (typeof stateValue === "object") && (stateValue.type === _1._submodule);
 }
 function handleSubModule(target, stateField, stateValue) {
+    var _a, _b;
     if (target.prototype[_1._module] === undefined) {
         target.prototype[_1._module] = (_a = {},
             _a[stateField] = stateValue.store.ExtractVuexModule(stateValue.store),
@@ -144,6 +144,5 @@ function handleSubModule(target, stateField, stateValue) {
         target.prototype[_1._module][stateField] = stateValue.store.ExtractVuexModule(stateValue.store);
         target.prototype[_1._submodule][stateField] = stateValue.store;
     }
-    var _a, _b;
 }
 //# sourceMappingURL=module.js.map

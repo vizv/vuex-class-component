@@ -2,7 +2,7 @@
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports._state = Symbol("state");
 exports._mutations = Symbol("mutations");
 exports._getters = Symbol("getters");

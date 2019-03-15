@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var module_1 = require("./module");
 var _1 = require(".");
 function action(options) {
@@ -15,6 +15,7 @@ function getRawActionContext(thisArg) {
 }
 exports.getRawActionContext = getRawActionContext;
 function rawAction(target, key, descriptor) {
+    var _a;
     var func = descriptor.value || new Function();
     var vuexFunc = function (context, payload) {
         return func.call(context, payload);
@@ -28,7 +29,6 @@ function rawAction(target, key, descriptor) {
     else {
         target[_1._actions][key] = vuexFunc;
     }
-    var _a;
 }
 function mutateAction(target, key, descriptor) {
     if (target[_1._actions_register] === undefined) {
